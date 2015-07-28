@@ -3,21 +3,19 @@
  */
 module.exports = {
   attributes:{
-    uid:{
-      type:'integer',
-      primaryKey:true,
-      autoIncrement:true,
-      defaultsTo:0
-    },
     name:{
       type:'string'
     },
+    avatar:{
+      type:'string',
+      defaultsTo:''
+    },
     account:{
-      type:'string'
+      type:'string',
+      primaryKey:true
     },
     password:{
       type:'string'
     }
   }
-
 };

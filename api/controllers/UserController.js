@@ -1,29 +1,18 @@
 /**
  * Created by zyg on 15/7/22.
  */
+
 module.exports = {
 
-  example:function(req,res){
-    console.log(req.params);
+  //HTTP POST 创建一个用户
+  create:function(req,res){
 
-    var obj = {
-      name:'zhouyg',
-      account:'h',
-      password:'123'
-    };
-
-    /*
-    User.create(obj).exec(function(err,o){
-      console.log(o);
-    });
-    */
-    User.findByAccount(obj.account).exec(function(err,o){
-      console.log(o);
-    });
+    var account = req.param('account'),
+        password = req.param('password');
 
     res.json({
-      result:false
+      account:account,
+      password:password
     });
-
   }
 };
