@@ -4,18 +4,17 @@
 
 module.exports = {
 
-  register:function(req,res){
+  signup:function(req,res){
 
     var email = req.param('email'),
         password = req.param('password'),
-        passwordRepeat = req.param('passwordRepeat'),
-        result = null;
+        passwordRepeat = req.param('passwordRepeat');
 
-    console.log('register');
+    console.log('register:');
     console.log('email:',email);
     console.log('password:',password);
 
-    User.register({
+    User.signup({
       account:email,
       password:password,
       passwordRepeat:passwordRepeat
@@ -23,17 +22,20 @@ module.exports = {
       res.json(result);
     });
   },
-  login:function(req,res){
+  signin:function(req,res){
 
     var email = req.param('email'),
       password = req.param('password');
 
-    console.log('login');
+    console.log('login:');
     console.log('email:',email);
     console.log('password:',password);
 
-    res.json({
-      success:true
-    })
+    User.signin({
+      account:email,
+      password:password
+    }).then(function(result){
+      res.json(result);
+    });
   }
 };

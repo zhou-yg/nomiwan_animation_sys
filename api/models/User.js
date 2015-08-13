@@ -19,20 +19,21 @@ module.exports = {
       type: 'string'
     }
   },
-  register: function (userMessage) {
+  signup: function (userMessage) {
 
     return new Promise(function (resolve, reject) {
       var result = {
         success: true,
         message: ''
       };
-      User.find({
+      User.findOne({
         account: userMessage.account
       }).exec(function (err, user) {
         if (err) {
           throw err;
         }
-        if (user && user.length > 0) {
+        console.log('User.findOne:',user);
+        if (user) {
           result.success = false;
           result.message = 'account exist';
         }
@@ -53,5 +54,31 @@ module.exports = {
           resolve(result)
         });
       });
+  },
+  signin:function(userMessage){
+    return new Promise(function(resolve,reject){
+      var result = {
+        success: true,
+        message: ''
+      };
+      User.findOne({
+        account: userMessage.account
+      }).exec(function (err, user) {
+        if (err) {
+          throw err;
+        }
+        console.log('User.findOne:',user);
+        if (user) {
+          if(user.password !== userMessage.password){
+            result.success = false;
+            result.message = 'password isnt equal';
+          }
+        }else{
+          result.success = false;
+          result.message = 'account isnt exist';
+        }
+        resolve(result);
+      })
+    });
   }
 };
